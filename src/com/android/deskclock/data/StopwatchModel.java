@@ -64,18 +64,11 @@ final class StopwatchModel {
     /** A mutable copy of the recorded stopwatch laps. */
     private List<Lap> mLaps;
 
-    /** Notification channel */
-    static final String STOPWATCH_BASE_CHANNEL_ID = "5660";
-
     StopwatchModel(Context context, SharedPreferences prefs, NotificationModel notificationModel) {
         mContext = context;
         mPrefs = prefs;
         mNotificationModel = notificationModel;
         mNotificationManager = NotificationManagerCompat.from(context);
-        NotificationChannel channel = new NotificationChannel(STOPWATCH_BASE_CHANNEL_ID,
-                        context.getString(R.string.default_label),
-                        NotificationManagerCompat.IMPORTANCE_HIGH);
-        mNotificationManager.createNotificationChannel(channel);
 
         // Update stopwatch notification when locale changes.
         final IntentFilter localeBroadcastFilter = new IntentFilter(Intent.ACTION_LOCALE_CHANGED);
@@ -242,6 +235,7 @@ final class StopwatchModel {
         // Otherwise build and post a notification reflecting the latest stopwatch state.
         final Notification notification =
                 mNotificationBuilder.build(mContext, mNotificationModel, stopwatch);
+        mNotificationBuilder.buildChannel(mContext, mNotificationManager);
         mNotificationManager.notify(mNotificationModel.getStopwatchNotificationId(), notification);
     }
 

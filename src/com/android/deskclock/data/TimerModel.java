@@ -129,9 +129,6 @@ final class TimerModel {
      */
     private Service mService;
 
-    /** Notification channel */
-    static final String TIMER_BASE_CHANNEL_ID = "3660";
-
     TimerModel(Context context, SharedPreferences prefs, SettingsModel settingsModel,
             RingtoneModel ringtoneModel, NotificationModel notificationModel) {
         mContext = context;
@@ -140,10 +137,6 @@ final class TimerModel {
         mRingtoneModel = ringtoneModel;
         mNotificationModel = notificationModel;
         mNotificationManager = NotificationManagerCompat.from(context);
-        NotificationChannel channel = new NotificationChannel(TIMER_BASE_CHANNEL_ID,
-                        context.getString(R.string.default_label),
-                        NotificationManagerCompat.IMPORTANCE_HIGH);
-        mNotificationManager.createNotificationChannel(channel);
 
         mAlarmManager = (AlarmManager) mContext.getSystemService(Context.ALARM_SERVICE);
 
@@ -760,8 +753,8 @@ final class TimerModel {
         final Notification notification =
                 mNotificationBuilder.build(mContext, mNotificationModel, unexpired);
         final int notificationId = mNotificationModel.getUnexpiredTimerNotificationId();
+        mNotificationBuilder.buildChannel(mContext, mNotificationManager);
         mNotificationManager.notify(notificationId, notification);
-
     }
 
     /**
