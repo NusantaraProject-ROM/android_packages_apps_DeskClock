@@ -421,7 +421,7 @@ public class Utils {
                 Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         sp.setSpan(new StyleSpan(Typeface.NORMAL), amPmPos, amPmPos + 1,
                 Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-        sp.setSpan(new TypefaceSpan("sans-serif"), amPmPos, amPmPos + 1,
+        sp.setSpan(new TypefaceSpan("@*android:string/config_bodyFontFamily"), amPmPos, amPmPos + 1,
                 Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
 
         return sp;
