@@ -45,6 +45,17 @@ android_app {
         "androidx.gridlayout_gridlayout",
         "androidx.recyclerview_recyclerview",
     ],
+    required: [
+        "com.android.deskclock_whitelist"
+    ],
 
     aaptflags: ["--legacy"],
+}
+
+prebuilt_etc {
+    name: "com.android.deskclock_whitelist",
+    product_specific: true,
+    sub_dir: "sysconfig",
+    src: "com.android.deskclock_whitelist.xml",
+    filename_from_src: true,
 }
