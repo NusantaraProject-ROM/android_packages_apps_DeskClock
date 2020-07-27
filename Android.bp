@@ -32,7 +32,10 @@ android_app {
     name: "DeskClockKotlin",
     resource_dirs: ["res"],
     sdk_version: "current",
-    overrides: ["AlarmClock"],
+    overrides: [
+        "AlarmClock",
+        "DeskClock",
+    ],
     srcs: [
         "src/**/*.java",
         "src/**/*.kt",
@@ -51,8 +54,7 @@ android_app {
         "src/**/deskclock/settings/*.java",
         "src/**/deskclock/stopwatch/*.java",
         "src/**/deskclock/timer/*.java",
-        "src/**/deskclock/uidata/FormattedStringModel.java",
-        "src/**/deskclock/uidata/PeriodicCallbackModel.java",
+        "src/**/deskclock/uidata/*.java",
     ],
     product_specific: true,
     static_libs: [
