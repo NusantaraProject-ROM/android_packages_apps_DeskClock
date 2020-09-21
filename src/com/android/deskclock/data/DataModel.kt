@@ -47,7 +47,6 @@ import kotlin.math.roundToInt
 /**
  * All application-wide data is accessible through this singleton.
  */
-// TODO(b/157255731) DataModel can be converted to an object after no Java code depends on it
 class DataModel private constructor() {
 
     /** Indicates the display style of clocks.  */
@@ -93,7 +92,7 @@ class DataModel private constructor() {
         val actionListener: View.OnClickListener?
             get() = mActionListener
 
-        fun isActionEnabled(context: Context?): Boolean {
+        fun isActionEnabled(context: Context): Boolean {
             return labelResId != 0 && mActionEnabled.apply(context)
         }
 
@@ -126,7 +125,7 @@ class DataModel private constructor() {
         private class ChangeAppNotificationSettingsListener : View.OnClickListener {
             override fun onClick(v: View) {
                 val context: Context = v.context
-                if (Utils.isLOrLater()) {
+                if (Utils.isLOrLater) {
                     try {
                         // Attempt to open the notification settings for this app.
                         context.startActivity(
@@ -1069,6 +1068,7 @@ class DataModel private constructor() {
         val sDataModel = DataModel()
 
         @get:JvmStatic
+        @get:Keep
         val dataModel
             get() = sDataModel
     }

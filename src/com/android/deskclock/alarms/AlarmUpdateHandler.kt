@@ -36,7 +36,7 @@ import java.util.Calendar
 /**
  * API for asynchronously mutating a single alarm.
  */
-// TODO(b/157255731) Replace deprecated AsyncTask calls
+// TODO(b/165664115) Replace deprecated AsyncTask calls
 class AlarmUpdateHandler(
     context: Context,
     private val mScrollHandler: ScrollHandler?,
@@ -77,7 +77,8 @@ class AlarmUpdateHandler(
 
             override fun onPostExecute(instance: AlarmInstance?) {
                 if (instance != null) {
-                    AlarmUtils.popAlarmSetSnackbar(mSnackbarAnchor, instance.alarmTime.timeInMillis)
+                    AlarmUtils.popAlarmSetSnackbar(mSnackbarAnchor!!,
+                            instance.alarmTime.timeInMillis)
                 }
             }
         }
@@ -132,7 +133,7 @@ class AlarmUpdateHandler(
             override fun onPostExecute(instance: AlarmInstance?) {
                 if (popToast && instance != null) {
                     AlarmUtils.popAlarmSetSnackbar(
-                            mSnackbarAnchor, instance.alarmTime.timeInMillis)
+                            mSnackbarAnchor!!, instance.alarmTime.timeInMillis)
                 }
             }
         }

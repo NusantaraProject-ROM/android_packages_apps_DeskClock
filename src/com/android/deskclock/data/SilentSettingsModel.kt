@@ -36,6 +36,7 @@ import android.net.Uri
 import android.os.AsyncTask
 import android.os.Build
 import android.os.Handler
+import android.os.Looper
 import android.provider.Settings.System.CONTENT_URI
 import android.provider.Settings.System.DEFAULT_ALARM_ALERT_URI
 import androidx.core.app.NotificationManagerCompat
@@ -79,7 +80,7 @@ internal class SilentSettingsModel(
         val contentChangeWatcher: ContentObserver = ContentChangeWatcher()
         cr.registerContentObserver(VOLUME_URI, false, contentChangeWatcher)
         cr.registerContentObserver(DEFAULT_ALARM_ALERT_URI, false, contentChangeWatcher)
-        if (Utils.isMOrLater()) {
+        if (Utils.isMOrLater) {
             val filter = IntentFilter(ACTION_INTERRUPTION_FILTER_CHANGED)
             mContext.registerReceiver(DoNotDisturbChangeReceiver(), filter)
         }
@@ -132,7 +133,7 @@ internal class SilentSettingsModel(
      * associated ringtone from playing. If any of them would prevent an alarm from firing or
      * making noise, a description of the setting is reported to this model on the main thread.
      */
-    // TODO(b/157255731) Replace deprecated AsyncTask calls
+    // TODO(b/165664115) Replace deprecated AsyncTask calls
     private inner class CheckSilenceSettingsTask : AsyncTask<Void?, Void?, SilentSetting?>() {
         override fun doInBackground(vararg parameters: Void?): SilentSetting? {
             if (!isCancelled() && isDoNotDisturbBlockingAlarms) {
@@ -163,7 +164,7 @@ internal class SilentSettingsModel(
 
         @get:TargetApi(Build.VERSION_CODES.M)
         private val isDoNotDisturbBlockingAlarms: Boolean
-            get() = if (!Utils.isMOrLater()) {
+            get() = if (!Utils.isMOrLater) {
                 false
             } else try {
                 val interruptionFilter: Int = mNotificationManager.getCurrentInterruptionFilter()
@@ -201,8 +202,7 @@ internal class SilentSettingsModel(
     /**
      * Observe changes to specific URI for settings that can silence firing alarms.
      */
-    // TODO(b/157255731) Replace Handler with non-deprecated constructor call
-    private inner class ContentChangeWatcher : ContentObserver(Handler()) {
+    private inner class ContentChangeWatcher : ContentObserver(Handler(Looper.myLooper()!!)) {
         override fun onChange(selfChange: Boolean) {
             updateSilentState()
         }
