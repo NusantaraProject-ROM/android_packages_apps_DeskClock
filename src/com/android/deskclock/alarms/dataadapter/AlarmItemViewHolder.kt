@@ -44,13 +44,13 @@ abstract class AlarmItemViewHolder(itemView: View)
 
     init {
         preemptiveDismissButton.setOnClickListener { _ ->
-            val alarmInstance = itemHolder.alarmInstance
+            val alarmInstance = itemHolder!!.alarmInstance
             if (alarmInstance != null) {
-                itemHolder.alarmTimeClickHandler.dismissAlarmInstance(alarmInstance)
+                itemHolder!!.alarmTimeClickHandler.dismissAlarmInstance(alarmInstance)
             }
         }
         onOff.setOnCheckedChangeListener { _, checked ->
-            itemHolder.alarmTimeClickHandler.setAlarmEnabled(itemHolder.item, checked)
+            itemHolder!!.alarmTimeClickHandler.setAlarmEnabled(itemHolder!!.item, checked)
         }
     }
 
@@ -60,7 +60,7 @@ abstract class AlarmItemViewHolder(itemView: View)
         bindClock(alarm)
         val context: Context = itemView.getContext()
         itemView.setContentDescription(clock.text.toString() + " " +
-                alarm!!.getLabelOrDefault(context))
+                alarm.getLabelOrDefault(context))
     }
 
     protected fun bindOnOffSwitch(alarm: Alarm) {
@@ -84,7 +84,7 @@ abstract class AlarmItemViewHolder(itemView: View)
             preemptiveDismissButton.visibility = View.VISIBLE
             val dismissText: String = if (alarm.instanceState == InstancesColumns.SNOOZE_STATE) {
                 context.getString(R.string.alarm_alert_snooze_until,
-                        AlarmUtils.getAlarmText(context, alarmInstance, false))
+                        AlarmUtils.getAlarmText(context, alarmInstance!!, false))
             } else {
                 context.getString(R.string.alarm_alert_dismiss_text)
             }
