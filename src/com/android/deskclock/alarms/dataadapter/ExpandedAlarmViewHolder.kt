@@ -87,47 +87,47 @@ class ExpandedAlarmViewHolder private constructor(itemView: View, private val mH
         }
 
         // Cannot set in xml since we need compat functionality for API < 21
-        val labelIcon: Drawable = Utils.getVectorDrawable(context, R.drawable.ic_label)
+        val labelIcon: Drawable? = Utils.getVectorDrawable(context, R.drawable.ic_label)
         editLabel.setCompoundDrawablesRelativeWithIntrinsicBounds(labelIcon, null, null, null)
-        val deleteIcon: Drawable = Utils.getVectorDrawable(context, R.drawable.ic_delete_small)
+        val deleteIcon: Drawable? = Utils.getVectorDrawable(context, R.drawable.ic_delete_small)
         delete.setCompoundDrawablesRelativeWithIntrinsicBounds(deleteIcon, null, null, null)
 
         // Collapse handler
         itemView.setOnClickListener { _ ->
             Events.sendAlarmEvent(R.string.action_collapse_implied, R.string.label_deskclock)
-            itemHolder.collapse()
+            itemHolder?.collapse()
         }
         arrow.setOnClickListener { _ ->
             Events.sendAlarmEvent(R.string.action_collapse, R.string.label_deskclock)
-            itemHolder.collapse()
+            itemHolder?.collapse()
         }
         // Edit time handler
         clock.setOnClickListener { _ ->
-            alarmTimeClickHandler.onClockClicked(itemHolder.item)
+            alarmTimeClickHandler.onClockClicked(itemHolder!!.item)
         }
         // Edit label handler
         editLabel.setOnClickListener { _ ->
-            alarmTimeClickHandler.onEditLabelClicked(itemHolder.item)
+            alarmTimeClickHandler.onEditLabelClicked(itemHolder!!.item)
         }
         // Vibrator checkbox handler
         vibrate.setOnClickListener { view ->
-            alarmTimeClickHandler.setAlarmVibrationEnabled(itemHolder.item,
+            alarmTimeClickHandler.setAlarmVibrationEnabled(itemHolder!!.item,
                     (view as CheckBox).isChecked)
         }
         // Ringtone editor handler
         ringtone.setOnClickListener { _ ->
-            alarmTimeClickHandler.onRingtoneClicked(context, itemHolder.item)
+            alarmTimeClickHandler.onRingtoneClicked(context, itemHolder!!.item)
         }
         // Delete alarm handler
         delete.setOnClickListener { view ->
-            alarmTimeClickHandler.onDeleteClicked(itemHolder)
+            alarmTimeClickHandler.onDeleteClicked(itemHolder!!)
             view.announceForAccessibility(context.getString(R.string.alarm_deleted))
         }
         // Repeat checkbox handler
         repeat.setOnClickListener { view ->
             val checked: Boolean = (view as CheckBox).isChecked
-            alarmTimeClickHandler.setAlarmRepeatEnabled(itemHolder.item, checked)
-            itemHolder.notifyItemChanged(ANIMATE_REPEAT_DAYS)
+            alarmTimeClickHandler.setAlarmRepeatEnabled(itemHolder!!.item, checked)
+            itemHolder?.notifyItemChanged(ANIMATE_REPEAT_DAYS)
         }
         // Day buttons handler
         for (i in dayButtons.indices) {
@@ -160,7 +160,7 @@ class ExpandedAlarmViewHolder private constructor(itemView: View, private val mH
         ringtone.setContentDescription("$description $title")
 
         val silent: Boolean = Utils.RINGTONE_SILENT == alarm.alert
-        val icon: Drawable = Utils.getVectorDrawable(context,
+        val icon: Drawable? = Utils.getVectorDrawable(context,
                 if (silent) R.drawable.ic_ringtone_silent else R.drawable.ic_ringtone)
         ringtone.setCompoundDrawablesRelativeWithIntrinsicBounds(icon, null, null, null)
     }
@@ -208,7 +208,7 @@ class ExpandedAlarmViewHolder private constructor(itemView: View, private val mH
     }
 
     private val alarmTimeClickHandler: AlarmTimeClickHandler
-        get() = itemHolder.alarmTimeClickHandler
+        get() = itemHolder!!.alarmTimeClickHandler
 
     override fun onAnimateChange(
         payloads: List<Any>?,
