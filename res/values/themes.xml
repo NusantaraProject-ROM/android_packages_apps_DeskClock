@@ -28,10 +28,10 @@
         <item name="android:windowContentOverlay">@null</item>
 
         <!-- Attributes from androidx.appcompat.appcompat -->
-        <item name="colorAccent">#DA4336</item>
-        <item name="colorBackgroundFloating">#303030</item>
-        <item name="colorControlActivated">@android:color/white</item>
-        <item name="colorControlNormal">?android:attr/textColorPrimary</item>
+        <item name="colorAccent">@android:color/system_accent1_200</item>
+        <item name="colorBackgroundFloating">#2A2B2E</item>
+        <item name="colorControlActivated">@android:color/system_accent1_50</item>
+        <item name="colorControlNormal">@android:color/system_accent2_200</item>
         <item name="colorPrimaryDark">#66000000</item>
         <item name="imageButtonStyle">@style/Widget.ImageButton</item>
         <item name="popupTheme">@style/ThemeOverlay.Popup</item>

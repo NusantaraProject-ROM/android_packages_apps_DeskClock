@@ -107,6 +107,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_margin="@dimen/fab_margin"
+            android:tint="@color/default_background"
             app:borderWidth="0dp"
             app:elevation="@dimen/fab_elevation" />
 
