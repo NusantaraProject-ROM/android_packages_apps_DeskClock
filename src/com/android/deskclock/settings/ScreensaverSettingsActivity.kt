@@ -58,10 +58,10 @@ class ScreensaverSettingsActivity : AppCompatActivity() {
             if (Utils.isNOrLater) {
                 getPreferenceManager().setStorageDeviceProtected()
             }
+            addPreferencesFromResource(R.xml.screensaver_settings)
         }
 
         override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
-            addPreferencesFromResource(R.xml.screensaver_settings)
         }
 
         override fun onResume() {
