@@ -29,6 +29,7 @@
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.DISABLE_KEYGUARD" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="org.codeaurora.permission.POWER_OFF_ALARM" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
     <uses-permission android:name="android.permission.USE_FULL_SCREEN_INTENT" />
     <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" />
@@ -151,7 +152,7 @@
             android:excludeFromRecents="true"
             android:resizeableActivity="false"
             android:showOnLockScreen="true"
-	    android:showWhenLocked="true"
+            android:showWhenLocked="true"
             android:taskAffinity=""
             android:windowSoftInputMode="stateAlwaysHidden" />
 
@@ -177,6 +178,7 @@
                 <action android:name="android.intent.action.MY_PACKAGE_REPLACED" />
                 <action android:name="android.intent.action.TIME_SET" />
                 <action android:name="android.intent.action.TIMEZONE_CHANGED" />
+                <action android:name="org.codeaurora.poweroffalarm.action.UPDATE_ALARM" />
             </intent-filter>
         </receiver>
 
